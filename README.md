@@ -6,6 +6,13 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
 
 ## Install
 
+### Generate keys
+
+```bash
+openssl genrsa -out rsa.private 1024
+openssl rsa -in rsa.private -out rsa.public -pubout -outform PEM
+```
+
 ### Target Machine
 
 ```bash
