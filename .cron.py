@@ -13,4 +13,4 @@ for cmd in cmds:
     print("root#", cmd)
     process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
-    print(output.decode("utf-8"), error, "\n")
+    print(output.decode("utf-8"), error.decode("utf-8"), "\n")
