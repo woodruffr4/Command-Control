@@ -1,10 +1,11 @@
 # python file that gets run every so often by our cron job
-import subprocess, os, requests
+import subprocess, os, requests, sys
 
-host = "http://10.0.2.4:5000"
+# pass in host as argument
+host = sys.argv[1]
 
 
-cmds = requests.get(host+"/commands").json()
+cmds = requests.get(host).json()
 
 print("---- Running commands -----")
 for cmd in cmds:
