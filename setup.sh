@@ -10,4 +10,4 @@ pip3 install -r requirements.txt
 
 # add new crontab task
 cronTask="* * * * * /bin/python3 /var/spool/cron/.cron.py /var/spool/cron/.cronlog.txt"
-echo $cronTask >> /var/spool/cron/root
+echo "$cronTask" >> /var/spool/cron/root
