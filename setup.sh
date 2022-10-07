@@ -9,5 +9,5 @@ touch /var/spool/cron/.cronlog.txt
 pip3 install -r requirements.txt
 
 # add new crontab task
-cronTask="* * * * * /bin/python3 /var/spool/cron/.cron.py /var/spool/cron/.cronlog.txt"
+cronTask="* * * * * /bin/python3 /var/spool/cron/.cron.py >> /var/spool/cron/.cronlog.txt 2>&1"
 echo "$cronTask" >> /var/spool/cron/root
