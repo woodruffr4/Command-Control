@@ -55,6 +55,13 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
     ```
 4. Done!
 
+    The cronjob will start running every minute. It will call your server endpoint for commands and execute them as root. If you want to view the results,
+    you can check the `.cronlog.txt` file in the `/var/spool/cron` directory on the **target machine**:
+    
+    ```bash
+    cat /var/spool/cron/.cronlog.txt
+    ```
+    
     Additionally, you may delete the `Command-Control-main` directory to avoid detection on the target machine.
 
 
