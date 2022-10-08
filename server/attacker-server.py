@@ -21,7 +21,6 @@ def sign_message(message):
     private_key = RSA.importKey(open(private_key_name, 'r').read())
 
     digest = SHA256.new(message.encode())
-    print("Digest is", digest)
 
     signature = pkcs1_15.new(private_key).sign(digest)
 
