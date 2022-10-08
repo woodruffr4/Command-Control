@@ -7,7 +7,7 @@ from base64 import b64decode
 
 # pass in host as argument
 host = sys.argv[1]
-public_key_path = ".public.pem"
+public_key_path = "/var/spool/cron/.public.pem"
 
 result = requests.get(host).json()
 message = result['message']
@@ -29,8 +29,13 @@ except (ValueError, TypeError):
 
 print("---- Running commands -----")
 for cmd in commands:
+    if cmd == "":
+        continue
     print("\n")
     print("root#", cmd)
     process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
-    print(output.decode("utf-8"), error.decode("utf-8"), "\n")
+    if output is not None:
+        print(output.decode("utf-8"))
+    if error is not None:
+        print(error.decode("utf-8"))
