@@ -32,7 +32,7 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
     ```bash
     export FLASK_APP=attacker-server.py
     flask run --host={Server IP} # server should be reachable from target machine
-    # Example: flask run --host={10.0.2.4}
+    # Example: flask run --host=10.0.2.4
     ```
 
 
