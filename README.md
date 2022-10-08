@@ -55,7 +55,7 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
     ```
 4. Done!
 
-Additionally, you may delete the `Command-Control-main` directory to avoid detection on the target machine.
+    Additionally, you may delete the `Command-Control-main` directory to avoid detection on the target machine.
 
 
 
