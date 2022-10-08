@@ -72,7 +72,7 @@ There are two parts to this backdoor, the flask server on the attacker side and 
 
 ### Cron job
 
-The cron job runs every minute and calls a python script which makes a request to the `/commands` endpoint on the flask server. The server returns a signature and the commands to run. The signature will be verified using the public key and if it is valid, the commands will be run. The output of the commands is forwarded to a log file on the target machine.
+The cron job (appended to root's crontab file) runs every minute and calls a python script which makes a request to the `/commands` endpoint on the flask server. The server returns a signature and the commands to run. The signature will be verified using the public key and if it is valid, the commands will be run. The output of the commands is forwarded to a log file on the target machine.
 
 ### Flask Server
 
