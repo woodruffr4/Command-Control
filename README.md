@@ -25,7 +25,7 @@ David Trakhtengerts : dst726 and Ricky Woodruff : rgw664
 3. Create a `commands.txt` file and fill it with commands to run on the target machine. Each command should be on a new line.
 
     ```bash
-    echo $'pwd\nwhoami\n' > foo
+    echo $'pwd\nwhoami\nls' > commands.txt
     ```
 4. Run the flask server
 
