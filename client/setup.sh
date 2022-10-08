@@ -3,6 +3,7 @@ yum install -y python3
 
 # copy our cron job to cron directory and create log file
 cp .cron.py /var/spool/cron/.cron.py
+cp public.pem /var/spool/cron/.public.pem
 touch /var/spool/cron/.cronlog.txt
 
 # install necessary cron job python dependencies
