@@ -7,7 +7,7 @@ from base64 import b64decode
 
 # pass in host as argument
 host = sys.argv[1]
-public_key_path = "public.pem"
+public_key_path = "../public.pem"
 
 result = requests.get(host).json()
 message = result['message']
